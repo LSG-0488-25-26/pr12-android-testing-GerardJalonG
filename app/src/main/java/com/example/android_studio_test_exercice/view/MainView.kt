@@ -30,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -64,6 +65,7 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                 Text(
                     text = "Activar Wi-Fi: ",
                     modifier = Modifier
+                        .testTag("wifiText_id")
                         .fillMaxWidth(0.6f)
                         .padding(0.dp, 10.dp),
                     fontSize = 25.sp
@@ -89,7 +91,9 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
             ) {
                 Text(
                     text = "Opcions de menú:",
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .testTag("menuText_id")
+                        .fillMaxWidth(),
                     fontSize = 25.sp
                 )
 
@@ -98,9 +102,18 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                         .fillMaxWidth()
                         .padding(0.dp, 10.dp)
                 ) {
-                    Text("Carnívor/a", Modifier.align(CenterVertically).fillMaxWidth(0.33f))
-                    Text("Vegetarià/na", Modifier.align(CenterVertically).fillMaxWidth(0.6f))
-                    Text("Vegà/na", Modifier.align(CenterVertically).fillMaxWidth(1f))
+                    Text(
+                        "Carnívor/a",
+                        Modifier.align(CenterVertically).fillMaxWidth(0.33f).testTag("carnivorText_id")
+                    )
+                    Text(
+                        "Vegetarià/na",
+                        Modifier.align(CenterVertically).fillMaxWidth(0.6f).testTag("vegetariaText_id")
+                    )
+                    Text(
+                        "Vegà/na",
+                        Modifier.align(CenterVertically).fillMaxWidth(1f).testTag("vegaText_id")
+                    )
                 }
 
                 Row(
@@ -111,7 +124,9 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                     Checkbox(
                         checked = esCarnivor,
                         onCheckedChange = { myViewModel.toggleEsCarnivor() },
-                        modifier = Modifier.fillMaxWidth(0.20f),
+                        modifier = Modifier
+                            .fillMaxWidth(0.20f)
+                            .testTag("checkBoxCarnivor_id"),
                         enabled = false,
                         colors = CheckboxDefaults.colors(
                             uncheckedColor = Color.LightGray,
@@ -121,7 +136,9 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                     Checkbox(
                         checked = esVegetaria,
                         onCheckedChange = { myViewModel.toggleEsVegetaria() },
-                        modifier = Modifier.fillMaxWidth(0.33f),
+                        modifier = Modifier
+                            .fillMaxWidth(0.33f)
+                            .testTag("checkBoxMulti_id"),
                         enabled = true,
                         colors = CheckboxDefaults.colors(
                             uncheckedColor = Color.LightGray,
@@ -131,7 +148,9 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                     Checkbox(
                         checked = esVega,
                         onCheckedChange = { myViewModel.toggleEsVega() },
-                        modifier = Modifier.fillMaxWidth(0.33f),
+                        modifier = Modifier
+                            .fillMaxWidth(0.33f)
+                            .testTag("checkBoxVega_id"),
                         enabled = true,
                         colors = CheckboxDefaults.colors(
                             uncheckedColor = Color.LightGray,
@@ -142,7 +161,13 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
             }
 
             Column(modifier = Modifier.fillMaxWidth()) {
-                Text("TriState", Modifier.fillMaxWidth(), fontSize = 20.sp)
+                Text(
+                    "TriState",
+                    Modifier
+                        .fillMaxWidth()
+                        .testTag("triStateText_id"),
+                    fontSize = 20.sp
+                )
                 TriStateCheckbox(
                     state = triStateStatus,
                     onClick = { myViewModel.toggleTriStateStatus() }
@@ -155,7 +180,7 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                     .padding(16.dp),
                 horizontalAlignment = Alignment.Start
             ) {
-                Text("Pilota d'Or:", fontSize = 20.sp)
+                Text("Pilota d'Or:", modifier = Modifier.testTag("pilotText_id"), fontSize = 20.sp)
 
                 listOf("Vinicius", "Lamine Yamal", "Raphina").forEach { player ->
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -173,7 +198,10 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                 }
             }
 
-            Text("Volum: ${sliderValue.toInt()}%")
+            Text(
+                text = "Volum: ${sliderValue.toInt()}%",
+                modifier = Modifier.testTag("volumeText_id")
+            )
             Slider(
                 value = sliderValue,
                 onValueChange = { myViewModel.setSliderValue(it) },
@@ -183,7 +211,9 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
             Box(modifier = Modifier.wrapContentSize()) {
                 Text(
                     text = selectedItem,
-                    modifier = Modifier.clickable { myViewModel.setExpanded(true) }
+                    modifier = Modifier
+                        .testTag("selectedItemText_id")
+                        .clickable { myViewModel.setExpanded(true) }
                 )
                 DropdownMenu(
                     expanded = expanded,
@@ -205,26 +235,34 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                 value = searchText,
                 onValueChange = { myViewModel.setSearchText(it) },
                 label = { Text("Buscar...") },
-                modifier = Modifier
+                modifier = Modifier.testTag("outlinedTextField_id")
             )
-            Button(onClick = { myViewModel.performSearch() }) {
+            Button(
+                onClick = { myViewModel.performSearch() },
+                modifier = Modifier.testTag("searchButton_id")
+            ) {
                 Text("Buscar")
             }
 
             if (showSnackbar) {
                 Text(
                     text = "Acció completada!",
-                    color = Color.Green
+                    color = Color.Green,
+                    modifier = Modifier.testTag("snackbarText_id")
                 )
             }
 
             Button(
                 onClick = { myViewModel.toggle() },
+                modifier = Modifier.testTag("toggleButton_id"),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (toggleState) Color.Green else Color.Red
                 )
             ) {
-                Text(if (toggleState) "Activat" else "Desactivat")
+                Text(
+                    if (toggleState) "Activat" else "Desactivat",
+                    modifier = Modifier.testTag("toggleButtonText_id")
+                )
             }
         }
     }
