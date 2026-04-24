@@ -74,7 +74,9 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                 Switch(
                     checked = estatSwitch,
                     onCheckedChange = { myViewModel.toggleEstatSwitch() },
-                    modifier = Modifier.fillMaxWidth(0.4f),
+                    modifier = Modifier
+                        .fillMaxWidth(0.4f)
+                        .testTag("switchWifi_id"),
                     enabled = true,
                     colors = SwitchDefaults.colors(
                         uncheckedThumbColor = Color.LightGray,
@@ -170,7 +172,8 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
                 )
                 TriStateCheckbox(
                     state = triStateStatus,
-                    onClick = { myViewModel.toggleTriStateStatus() }
+                    onClick = { myViewModel.toggleTriStateStatus() },
+                    modifier = Modifier.testTag("triStateCheckbox_id")
                 )
             }
 
@@ -184,9 +187,15 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
 
                 listOf("Vinicius", "Lamine Yamal", "Raphina").forEach { player ->
                     Row(verticalAlignment = Alignment.CenterVertically) {
+                        val radioTag = when (player) {
+                            "Vinicius" -> "radioButton_Vinicius"
+                            "Lamine Yamal" -> "radioButton_LamineYamal"
+                            else -> "radioButton_Raphina"
+                        }
                         RadioButton(
                             selected = selectedOption == player,
                             onClick = { myViewModel.setSelectedOption(player) },
+                            modifier = Modifier.testTag(radioTag),
                             enabled = player != "Vinicius",
                             colors = RadioButtonDefaults.colors(
                                 selectedColor = Color.Black,
@@ -205,7 +214,8 @@ fun MainView(myViewModel: MainViewModel, modifier: Modifier = Modifier) {
             Slider(
                 value = sliderValue,
                 onValueChange = { myViewModel.setSliderValue(it) },
-                valueRange = 0f..100f
+                valueRange = 0f..100f,
+                modifier = Modifier.testTag("sliderVolume_id")
             )
 
             Box(modifier = Modifier.wrapContentSize()) {
