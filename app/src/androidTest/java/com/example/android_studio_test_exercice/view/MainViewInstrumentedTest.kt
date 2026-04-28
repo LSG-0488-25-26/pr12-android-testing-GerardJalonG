@@ -16,7 +16,7 @@ import com.example.android_studio_test_exercice.viewmodel.MainViewModel
 import org.junit.Rule
 import org.junit.Test
 
-class MainViewInstrumentedTest {
+class   MainViewInstrumentedTest {
 
     @get:Rule
     val composeRule = createAndroidComposeRule<ComponentActivity>()
