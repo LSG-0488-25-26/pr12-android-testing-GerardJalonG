@@ -9,3 +9,7 @@ Aplicació modificada i tests aplicats a les funcions del viewmodel i a la inter
 ### Instrumental Testing
 
 <img width="1212" height="706" alt="image" src="https://github.com/user-attachments/assets/2edf1e9c-b47f-4b28-bb99-0e3e0c0e815a" />
+
+### Video instrumental Testing
+
+[Ver vídeo](https://youtu.be/weCBNo3NcUY)
